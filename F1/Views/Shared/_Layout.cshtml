@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<title>NERFO F1 Fantasy</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+	<!-- Favicons -->
+	<link href="~/img/f1-logo/favicon.ico" rel="icon"/>
+	<link href="~/img/apple-touch-icon.png" rel="apple-touch-icon"/>
+
+	<!-- Google Fonts -->
+	<link href="~/css/css.css" rel="stylesheet" />
+
+	<!-- Vendor CSS Files -->
+	<link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+	<link href="~/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"/>
+	<link href="~/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"/>
+
+	<!-- LogIn CSS Files -->
+	<link href="~/css/LogIn.css" rel="stylesheet" />
+
+	<!-- Footer RRSS CSS Files -->
+	<link href="~/css/rrss.css" rel="stylesheet" />
+	<link href="~/css/all.min.css" rel="stylesheet" />
+
+	<!-- Template Main CSS File -->
+	<link href="~/css/style.css" rel="stylesheet"/>
+</head>
+
+<body>
+	<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top d-flex align-items-center">
+		<div class="container d-flex align-items-center">
+
+			<div class="logo me-auto">
+				<h1><a asp-controller="F1" asp-action="Index">NERFO F1 Fantasy</a></h1>
+				<!-- Uncomment below if you prefer to use an image logo -->
+				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+			</div>
+
+			<nav id="navbar" class="navbar">
+				<ul>
+					@if(Context.Session.GetObject<UserPlayer>("Admin") != null)
+					{
+						@await Component.InvokeAsync("MenuAdmin")
+					}
+					else if (Context.Session.GetObject<UserPlayer>("Usuario") != null)
+					{
+						@await Component.InvokeAsync("MenuUser")
+					}
+					else
+					{
+						<li><a class="nav-link scrollto active" asp-controller="F1" asp-action="Index">Home</a></li>
+						<li><a class="nav-link scrollto" asp-controller="F1" asp-action="HowToPlay">How to play</a></li>
+						<li><a class="nav-link scrollto" asp-controller="F1" asp-action="GameRules">Game rules</a></li>
+						<li><a class="nav-link scrollto" asp-controller="F1" asp-action="ViewResultRace">Results Race</a></li>
+						<li><a class="nav-link scrollto" asp-controller="Managed" asp-action="LogIn">Log in</a></li>
+						<li><a class="nav-link scrollto" asp-controller="F1" asp-action="Register">Sign up</a></li>
+					}
+				</ul>
+				<i class="bi bi-list mobile-nav-toggle"></i>
+			</nav><!-- .navbar -->
+
+		</div>
+	</header><!-- End #header -->
+
+	<!-- ======= RENDER Section ======= -->
+	<section id="renderBody">
+		<div>
+			@RenderBody()
+		</div>
+	</section><!-- End #renderSection -->
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer">
+		<div class="copyright">
+			<div>
+				<p>If you want to keep up to date, visit our social networks and find out everything that happens in this wonderful community</p>
+			</div>
+			<ul class="wrapper">
+				<li class="icon facebook">
+					<span class="tooltip">Facebook</span>
+					<a href="https://www.facebook.com/Formula1" target="_blank"><img src="~/img/rrss/facebook.svg" /></a>
+				</li>
+				<li class="icon twitter">
+					<span class="tooltip">Twitter</span>
+					<a href="https://twitter.com/f1" target="_blank"><img src="~/img/rrss/twitter.svg" /></a>
+				</li>
+				<li class="icon instagram">
+					<span class="tooltip">Instagram</span>
+					<a href="https://www.instagram.com/f1/" target="_blank"><img src="~/img/rrss/instagram.svg" /></a>
+				</li>
+				<li class="icon youtube">
+					<span class="tooltip">Youtube</span>
+					<a href="https://www.youtube.com/F1" target="_blank"><img src="~/img/rrss/youtube.svg" /></a>
+				</li>
+			</ul>
+		</div>
+		<hr />
+		<br />
+		<div id="fotologopie" class="copyright container d-flex justify-content-between">
+			<div>
+				<img src="~/img/logo-nerfo/nerfo.png" style="width:150px;"/>
+			</div>
+			<div>
+				<span>By: <a href="https://github.com/NERFOO" target="_blank"><strong>Jaime Calderón Acero</strong></a></span>
+			</div>
+		</div>
+		<br />
+		<hr />
+		<div id="fotologopie" class="copyright container d-flex justify-content-between">
+			<div>
+				<img src="~/img/f1-logo/f1-fantasy-white-logo.svg" />
+			</div>
+			<div>
+				<span>&copy; 2023 Formula One World Championship Limited</span>
+			</div>
+		</div>
+	</footer><!-- End #footer -->
+
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+	<!-- Vendor JS Files -->
+	<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="~/vendor/glightbox/js/glightbox.min.js"></script>
+	<script src="~/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="~/vendor/swiper/swiper-bundle.min.js"></script>
+	<script src="~/vendor/php-email-form/validate.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+
+	<!-- Template Main JS File -->
+	<script src="~/js/main.js"></script>
+
+	<!-- Template Sweet Alert -->
+	<script src="~/js/sweetalert2.all.min.js"></script>
+</body>
+
+</html>

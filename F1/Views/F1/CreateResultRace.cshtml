@@ -1,0 +1,45 @@
+﻿@{
+    List<Driver> drivers = ViewData["Drivers"] as List<Driver>;
+    List<Race> races = ViewData["Races"] as List<Race>;
+}
+
+<div style ="padding: 160px 0 100px">
+    <h1>Create result race</h1>
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <label>Insert the race position</label>
+        <input type="number" name="position" class="form-control" required />
+
+        <label>Insert the points obtained</label>
+        <input type="number" name="points" class="form-control" required />
+
+        <label>Insert race time</label>
+        <input type="text" name="lapTime" class="form-control" required />
+
+        <label>Choose the race</label>
+        <select class="form-select" name="idRace" required>
+            <option value="" selected>Choose one</option>
+            @foreach(Race r in races)
+            {
+                <option value="@r.IdRace">@r.GpName</option>
+            }
+        </select>
+
+        <label>Choose the driver</label>
+        <select class="form-select" name="idDriver" required>
+            <option value="" selected>Choose one</option>
+            @foreach (Driver d in drivers)
+            {
+                <option value="@d.IdDriver">@d.DriverName</option>
+            }
+        </select>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-outline-danger">Add Record</button>
+            <a asp-controller="F1" asp-action="AdminPage" class="btn btn-outline-warning">Come back</a>
+        </div>
+    </form>
+
+    <h4>@ViewData["ResultRaceCreation"]</h4>
+</div>

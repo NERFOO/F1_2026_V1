@@ -1,0 +1,47 @@
+﻿
+
+<div style="padding: 160px 0 100px">
+    <h1>Admin Page</h1>
+
+
+@*    <ul class="list-group">
+        <li class="list-group list-group-item">
+            <a class="nav-link scrollto" asp-controller="F1" asp-action="PointsDriver">Insert Points Driver by Race</a>
+        </li>
+        <li class="list-group list-group-item">
+            <a class="nav-link scrollto" asp-controller="F1" asp-action="PointsDriverRemove">Remove Points Driver by Race</a>
+        </li>
+    </ul>*@
+
+
+    <div>
+        <div>
+            <h3>Create Race Record</h3>
+            <a class="btn btn-success" asp-controller="F1" asp-action="CreateResultRace">Create Result Race</a>
+        </div>
+
+        <div>
+            <h3>Update Race Record</h3>
+            <a class="btn btn-warning asp-controller="F1" asp-action="UpdateResultRace">Update Result Race</a>
+        </div>
+
+        <div>
+            <h3>Delete Race Record</h3>
+            <a class="btn btn-danger" asp-controller="F1" asp-action="DeleteResultRace">Delete Result Race</a>
+        </div>
+    </div>
+
+    <div>
+        <h3>Reset the points of the teams, drivers and teams of each user of the leagues</h3>
+        <form asp-controller="F1" asp-action="RestartPointsDriver" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-outline-danger">Restart all Points by Driver</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Insert the points in the teams of the leagues, in the teams and in the drivers</h3>
+        <a class="btn btn-outline-danger" asp-controller="F1" asp-action="PointsUserLeagues">Insert Points Users in Leagues</a>
+    </div>
+    
+</div>

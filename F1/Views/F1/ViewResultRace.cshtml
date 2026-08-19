@@ -1,0 +1,147 @@
+﻿@model IEnumerable<F1.Models.VistaResultRace>
+
+@{
+    ViewData["Title"] = "ViewResultRace";
+
+    List<Race> races = ViewData["Races"] as List<Race>;
+
+    int idRace = 0;
+    if(Model != null)
+    {
+        idRace = (int)ViewData["IdRace"] - 1;
+    }
+}
+
+@section Scripts{
+    <script>
+        const selectElement = document.getElementById('selectRace');
+        const formElement = document.getElementById('formResultRace');
+
+        selectElement.addEventListener('change', function () {
+            formElement.submit();
+        });
+    </script>
+}
+
+<div id="ViewResultRace" class="container">
+
+    <div>
+        <h1 style="color: black">Results Race</h1>
+
+        <div>
+            <form id="formResultRace" method="post">
+                @Html.AntiForgeryToken()
+                <select id="selectRace" class="form-select" name="idRace" size="6">
+                    <option selected>Select a Grand Prix</option>
+                    @foreach (Race r in races)
+                    {
+                        <option value="@r.IdRace">@r.GpName</option>
+                    }
+                </select>
+
+                @*<button type="submit" class="btn btn-outline-danger">Results</button>*@
+            </form>
+        </div>
+
+        <br /><br />
+
+        @if(idRace != null && Model != null)
+        {
+            <h2>@races[idRace].GpName</h2>
+        }
+
+        <br /><br />
+
+        <div class="container">
+            @if (Model != null)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Position
+                            </th>
+                            <th>
+                                Driver
+                            </th>
+                            <th>
+                                Team
+                            </th>
+                            <th>
+                                Time/Retired
+                            </th>
+                            <th>
+                                Points
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.PositionRace
+                                </td>
+                                <td>
+                                    @item.DriverName
+                                </td>
+                                <td>
+                                    @item.TeamName
+                                </td>
+                                <td>
+                                    @item.LapTime
+                                </td>
+                                <td>
+                                    @item.Points
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+
+        <div class="container movil">
+            @if (Model != null)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Pos
+                            </th>
+                            <th>
+                                Driver
+                            </th>
+                            <th>
+                                Time/Retired
+                            </th>
+                            <th>
+                                Pts
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.PositionRace
+                                </td>
+                                <td>
+                                    @item.DriverName
+                                </td>
+                                <td>
+                                    @item.LapTime
+                                </td>
+                                <td>
+                                    @item.Points
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

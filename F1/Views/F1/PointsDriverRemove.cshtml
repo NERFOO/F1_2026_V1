@@ -1,0 +1,22 @@
+﻿@model List<Race>
+
+
+<h1>Remove points driver</h1>
+
+
+<form method="post">
+    @Html.AntiForgeryToken()
+    <select name="idRace" class="form-select" required>
+        <option value=""></option>
+
+        @foreach (Race r in Model)
+        {
+            <option value="@r.IdRace">@r.GpName</option>
+        }
+    </select>
+
+    <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-outline-danger">Update</button>
+        <a asp-controller="F1" asp-action="AdminPage" class="btn btn-outline-warning">Come back</a>
+    </div>
+</form>

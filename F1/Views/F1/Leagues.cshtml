@@ -1,0 +1,81 @@
+﻿@model List<VistaLeague>
+
+@{
+    List<League> leagues = ViewData["Leagues"] as List<League>;
+    int registros = (int)ViewData["REGISTROS"];
+
+    int cnt = 1;
+    int contador = 0;
+}
+
+@if(Model != null)
+{
+    <div id="leagues">
+
+        <div id="createLeagueDiv" class="d-flex justify-content-between">
+            <p id="createLeague" class="btn btn-outline-danger">Create League</p>
+            <form id="formCreateLeague" method="post" class="none" action="CreateLeague">
+                @Html.AntiForgeryToken()
+                <label>Insert the name of league</label>
+                <input type="text" name="leagueName" class="form-control" />
+                <button type="submit" class="btn btn-outline-success">Add league</button>
+            </form>
+
+            <div>
+                <form class="form-inline my-2 my-lg-0 d-flex" method="post" action="FindLeagueCode">
+                    @Html.AntiForgeryToken()
+                    <input class="form-control mr-sm-2" type="number" name="leagueCode" placeholder="League Code">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="leaguesAll">
+            <div>
+                <h3>My leagues</h3>
+                @foreach (VistaLeague vl in Model)
+                {
+                    <div>
+                        <a asp-controller="F1" asp-action="League" asp-route-idLeague="@vl.IdLeague">@vl.LeagueName</a>
+                    </div>
+                }
+            </div>
+
+            <div>
+                <h3>Public leagues</h3>
+
+                @foreach (League l in leagues)
+                {
+                    <div>
+                        <a asp-controller="F1" asp-action="League" asp-route-idLeague="@l.IdLeague">@l.LeagueName</a>
+                    </div>
+                }
+
+                <div>
+                    @for (int i = 0; i < registros; i += 3)
+                    {
+                        <a class="btn btn-outline-info" asp-controller="F1" asp-action="Leagues" asp-route-posicion="@i">@(cnt++)</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    var btnCreateLeague = document.getElementById("createLeague");
+    var formCreateLeague = document.getElementById("formCreateLeague");
+
+    btnCreateLeague.addEventListener("click", function () {
+        if (formCreateLeague.classList.contains("none")) {
+            formCreateLeague.classList.remove("none");
+		}
+        else {
+            formCreateLeague.classList.add("none");
+        }
+	});
+</script>
+
+
+
+

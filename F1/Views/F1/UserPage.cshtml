@@ -1,0 +1,74 @@
+﻿@model UserPlayer
+
+@if(Model != null) {
+	<div style="padding: 160px 0 100px">
+		<h1 style="text-transform:uppercase">Personal information</h1>
+
+		<div class="d-flex justify-content-between">
+			<div>
+				<label style="font-weight: bold">Nickname</label><br />
+				<span>@Model.Nickname</span>
+			</div>
+			<span><a asp-controller="F1" asp-action="UserPage" asp-route-nickname="nickname">Edit</a></span>
+		</div>
+
+		<div style="display: @ViewData["nickname"]">
+			<br />
+			<form method="post">
+				@Html.AntiForgeryToken()
+				<input type="text" name="nickname" class="form-control" placeholder="New nickname" />
+
+				<button type="submit" class="btn btn-primary">Save</button>
+				<a class="btn btn-danger" asp-controller="F1" asp-action="UserPage" asp-route-nickname="">Cancel</a>
+			</form>
+		</div>
+
+		<hr />
+
+		<div class="d-flex justify-content-between">
+			<div>
+				<label style="font-weight: bold">Email</label><br />
+				<span>@Model.Email</span>
+			</div>
+			<span><a asp-controller="F1" asp-action="UserPage" asp-route-email="email">Edit</a></span>
+		</div>
+
+		<div style="display: @ViewData["email"]">
+			<br />
+			<form method="post">
+				@Html.AntiForgeryToken()
+				<input type="email" name="email" class="form-control" placeholder="New email" />
+
+				<button type="submit" class="btn btn-primary">Save</button>
+				<a class="btn btn-danger" asp-controller="F1" asp-action="UserPage" asp-route-email="">Cancel</a>
+			</form>
+		</div>
+
+		<hr />
+
+		<div class="d-flex justify-content-between">
+			<div>
+				<label style="font-weight: bold">Password</label><br />
+				<span>•••••••••••••</span>
+			</div>
+			<span><a asp-controller="F1" asp-action="UserPage" asp-route-password="password">Edit</a></span>
+		</div>
+
+		<div style="display: @ViewData["password"]">
+			<br />
+			<form method="post">
+				@Html.AntiForgeryToken()
+				<input type="password" name="password" class="form-control" placeholder="New password" />
+
+				<button type="submit" class="btn btn-primary">Save</button>
+				<a class="btn btn-danger" asp-controller="F1" asp-action="UserPage" asp-route-password="">Cancel</a>
+			</form>
+		</div>
+
+		<hr />
+
+		<h3 style="color:red">@ViewData["CambioUser"]</h3>
+
+		<a class="btn btn-dark" asp-controller="F1" asp-action="UserPage" asp-route-logout="logout">Log Out</a>
+	</div>
+}

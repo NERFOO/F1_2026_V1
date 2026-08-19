@@ -1,0 +1,260 @@
+﻿@model List<Race>
+
+@{
+    List<Schedule> schedules = ViewData["Schedule"] as List<Schedule>;
+}
+
+
+<div>
+    <div id="divVideo">
+
+        <video id="background-video" autoplay loop muted poster="~/img/f1-logo/banner-video.jpg">
+            <source src="~/video/f1-video.mp4" type="video/mp4">
+        </video>
+
+        <h1 id="textoVideo" style="color:black">
+            The season has already begun! What are you waiting for to challenge the rest of the fans?<br />
+            <a id="btnComenzar" class="btn btn-outline-danger" asp-controller="F1" asp-action="HowToPlay">Start</a>
+        </h1>
+
+    </div>
+
+    <div class="container centradoRaces">
+
+        <h3 style="margin-top: 100px">The next race will be displayed after each Sunday of the race</h3>
+
+        @if (Model != null)
+        {
+            @foreach (Race r in Model)
+            {
+                <div id="raceIndex" class="card" style="padding: 20px">
+                    <div>
+                        <img src="~/img/Circuits/@r.GpImg" class="card-img-top" alt="@r.GpName">
+                    </div>
+                    <div class="card-body">
+                        <h5 style="color:black" class="card-title"><strong>@r.GpName</strong></h5>
+                        <p class="card-text">Circuit: @r.CircuitName</p>
+
+                        <p id="dateRace" class="card-text">
+                            <span><img src="~/img/flag/favicon.ico" /></span> @r.GpDateStart - @r.GpDateEnd <span><img style="transform: scaleX(-1)" src="~/img/flag/favicon.ico" /></span>
+                        </p>
+
+                        <div>
+                            @foreach (Schedule s in schedules)
+                            {
+                                @if (r.IdRace == s.IdRace)
+                                {
+                                    <div style="margin: 20px 0">
+                                        <span style="color: red">@s.ScheduleName</span><br />
+                                        <span>@s.ScheduleDay @s.ScheduleTime</span>
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                        <div style="display: flex; align-items: flex-end;">
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollableMovil-@r.IdRace">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        Details
+                                    </font>
+                                </font>
+                            </button>
+                        </div>
+
+                        <div>
+                            <div class="modal fade" id="exampleModalCenteredScrollableMovil-@r.IdRace" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableMovilTitle" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 style="color:black">@r.GpName</h2>
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerca"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Country</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.Country</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Circuit Length</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.GpLength Km</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Race Distance</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.GpDistance Km</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Number of Turns</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.Turn</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Number of Laps</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.Lap</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Last Winner</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.LastWinner</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Lap Record</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.FastLap</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="raceIndex" class="card tv">
+                    <div>
+                        <img style="padding: 20px" src="~/img/Circuits/@r.GpImg" class="card-img-top" alt="@r.GpName">
+                    </div>
+                    <div class="card-body d-flex justify-content-evenly">
+                        <div id="h5" style="width: 40%">
+                            <h5 style="color:black;" class="card-title"><strong>@r.GpName</strong></h5>
+                            <p class="card-text">Circuit: @r.CircuitName</p>
+
+                            <p class="card-text">
+                                <span><img src="~/img/flag/favicon.ico" /></span> @r.GpDateStart - @r.GpDateEnd <span><img style="transform: scaleX(-1)" src="~/img/flag/favicon.ico" /></span>
+                            </p>
+                        </div>
+
+                        <div>
+                            @foreach (Schedule s in schedules)
+                            {
+                                @if (r.IdRace == s.IdRace)
+                                {
+                                    <div class="d-flex justify-content-between">
+                                        <span style="margin-right: 50px; color:red">@s.ScheduleName</span>
+                                        <span>@s.ScheduleDay  @s.ScheduleTime</span>
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                        <div style="display: flex; align-items: flex-end;">
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable-@r.IdRace">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        Details
+                                    </font>
+                                </font>
+                            </button>
+                        </div>
+
+                        <div>
+                            <div class="modal fade" id="exampleModalCenteredScrollable-@r.IdRace" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 style="color:black">@r.GpName</h2>
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerca"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Country</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.Country</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Circuit Length</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.GpLength Km</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Race Distance</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.GpDistance Km</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Number of Turns</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.Turn</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Number of Laps</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.Lap</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Last Winner</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.LastWinner</span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between">
+                                                        <div>
+                                                            <span>Lap Record</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>@r.FastLap</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

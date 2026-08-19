@@ -1,0 +1,13 @@
+﻿@{
+	UserPlayer user = Context.Session.GetObject<UserPlayer>("Usuario");
+}
+
+@if(user != null) {
+	<li><a class="nav-link scrollto active" asp-controller="F1" asp-action="Index">Home</a></li>
+	<li><a class="nav-link scrollto" asp-controller="F1" asp-action="TeamPage">My team</a></li>
+	<li><a class="nav-link scrollto" asp-controller="F1" asp-action="Leagues">Leagues</a></li>
+	<li><a class="nav-link scrollto" asp-controller="F1" asp-action="HowToPlay">How to play</a></li>
+	<li><a class="nav-link scrollto" asp-controller="F1" asp-action="GameRules">Game rules</a></li>
+	<li><a class="nav-link scrollto" asp-controller="F1" asp-action="ViewResultRace">Results Race</a></li>
+	<li><a class="nav-link scrollto" asp-controller="F1" asp-action="UserPage">@user.Nickname</a></li>
+}

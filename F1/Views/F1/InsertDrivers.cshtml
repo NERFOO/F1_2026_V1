@@ -1,0 +1,47 @@
+﻿@model List<Driver>
+
+@{
+    int count = (int)ViewData["Disable"];
+
+    string pilotoSelected = "";
+
+    if(Model != null)
+    {
+        pilotoSelected = ViewData["PilotoExistente"].ToString();
+    }
+
+    if(count != 0)
+    {
+        count = (int)@ViewData["Disable"];
+    }
+}
+
+<h1>Choose 5 driver in your team</h1>
+
+<form method="post">
+    @Html.AntiForgeryToken()
+    <label>Choose one driver</label>
+
+    <select name="idDriver" class="form-select">
+        @foreach (Driver d in Model)
+        {
+            <option value="@d.IdDriver">@d.DriverName</option>
+        }
+    </select>
+    @if(count == 4)
+    {
+        <button type="submit" class="btn btn-outline-success" disabled>Add</button>
+        <button type="submit" class="btn btn-outline-success" asp-controller="F1" asp-action="TeamPage">View my Team</button>
+    } else
+    {
+        <button type="submit" class="btn btn-outline-success">Add</button>
+    }
+</form>
+
+@if(count != null) {
+    <h4>@ViewData["Selected"]</h4>
+}
+
+@if(pilotoSelected != "null") {
+    <h4 style="color:red">@ViewData["PilotoExistente"]</h4>
+}

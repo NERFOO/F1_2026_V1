@@ -1,0 +1,33 @@
+﻿
+
+
+
+@{
+    int idUser = Context.Session.GetObject<UserPlayer>("Usuario").IdUser;
+
+    List<Team> teams = ViewData["Teams"] as List<Team>;
+}
+
+<div id="CreateUserTeam" class="container d-flex">
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <label>Insert your team name</label>
+        <input type="text" name="userTeamName" class="form-control" required />
+
+        <input type="hidden" name="idUser" value="@idUser" />
+
+        <br />
+
+        <select name="idTeam" class="form-select" required>
+            <option value="">Choose your Team</option>
+            @foreach(Team t in teams)
+            {
+                <option value="@t.IdTeam">@t.TeamName</option>
+            }
+        </select>
+
+        <br />
+
+        <button type="submit" class="btn btn-outline-danger">Confirm</button>
+    </form>
+</div>

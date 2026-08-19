@@ -1,0 +1,114 @@
+﻿@model List<VistaLeague>
+
+@{
+    int idLeague = (int)ViewData["League"];
+
+    List<VistaLeague> userInLEagues = ViewData["UserInLeague"] as List<VistaLeague>;
+
+    League league = ViewData["LeagueUnicque"] as League;
+
+    int posicion = 1;
+}
+
+@if (Model != null && Model.Count() != 0)
+{
+    <div style="display: flex; flex-direction: column; gap: 100px; margin-top: 100px">
+
+        <div>
+            <h3>League: @Model[0].LeagueName</h3>
+
+            @if(league != null)
+            {
+                <div id="shared">
+                    <div style="display: flex; align-items: center;">
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    Shared <img src="~/img/svg-icons/share.svg" style="width: 16px" />
+                                </font>
+                            </font>
+                        </button>
+                        <img src="~/img/rrss/whatsapp.svg" style="width: 24px; cursor: pointer; margin: 0 10px;" onclick="compartirWhatsApp()" />
+                    </div>
+
+                    <div class="modal fade" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 style="color:black">@league.LeagueName</h2>
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerca"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <p>Share the link so your friends can join</p>
+                                        <input type="text" value="@league.LeagueCode" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Nickname</th>
+                        <th scope="col">Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(VistaLeague vista in Model)
+                    {
+                        <tr>
+                            <td>@(@posicion++)</td>
+                            <td>@vista.Nickname</td>
+                            <td>@vista.UserTotalPoints</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if(userInLEagues.Count() == 0 || userInLEagues == null)
+        {
+            <form asp-controller="F1" asp-action="JoinLeague" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="idLeague" value="@idLeague" />
+                <button type="submit" class="btn btn-outline-success">Join</button>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="F1" asp-action="RemoveUserLeague" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="idLeague" value="@idLeague" />
+                <button type="submit" class="btn btn-outline-warning">Leave the league</button>
+            </form>
+        }
+
+        <a class="btn btn-outline-danger" asp-controller="F1" asp-action="Leagues">Come back</a>
+    </div>
+}
+else
+{
+    <h3>No participants</h3>
+
+    <form asp-controller="F1" asp-action="JoinLeague" method="post" class="d-inline">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="idLeague" value="@idLeague" />
+        <button type="submit" class="btn btn-outline-success">Join</button>
+    </form>
+    <a class="btn btn-outline-danger" asp-controller="F1" asp-action="Leagues">Come back</a>
+}
+
+<script>
+    function compartirWhatsApp() {
+        var parametroDinamico = @idLeague;
+        var enlace = "https://localhost:7069/F1/League?idLeague=" + parametroDinamico;
+        var whatsappEnlace = "https://api.whatsapp.com/send?text=" + encodeURIComponent(enlace);
+        window.open(whatsappEnlace, "Compartir en WhatsApp", "width=600, height=400");
+    }
+</script>

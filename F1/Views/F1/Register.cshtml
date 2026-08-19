@@ -1,0 +1,20 @@
+﻿
+
+<div class="login-wrap" style="margin: 160px 0 100px">
+	<h2>Sign up</h2>
+
+	<form method="post" class="form">
+		@Html.AntiForgeryToken()
+		<input type="text" name="nickname" class="form-control" placeholder="Enter your nickName" required autocomplete="off">
+
+		<input type="email" name="email" class="form-control" placeholder="Enter your email" required autocomplete="off">
+
+		<input type="password" name="password" class="form-control" placeholder="Enter your password" required autocomplete="off">
+
+		<button type="submit"> Sign up </button>
+
+		<p style="color:red; margin-left: 10%;">@ViewData["UsuarioYaRegistrado"]</p>
+
+		<a asp-controller="Managed" asp-action="LogIn"><p> Have an account? Log in </p></a>
+	</form>
+</div>

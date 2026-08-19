@@ -1,0 +1,284 @@
+﻿@model List<VistaUserTeam>
+
+@{
+	int idUser = Context.Session.GetObject<UserPlayer>("Usuario").IdUser;
+
+	UserTeam userTeamCheck = ViewData["UserTeam"] as UserTeam;
+	List<Team> teams = ViewData["Teams"] as List<Team>;
+
+	int numTeam = userTeamCheck.IdTeam - 1;
+}
+
+<div id="TeamPage" class="container">
+	@if(Model != null && Model.Count() != 0)
+	{
+		<div class="card bg-light border-danger">
+			<div class="card-header">
+				<div class="d-flex justify-content-between">
+					<span>@userTeamCheck.UserTeamName</span>
+					<span><b>Budget - $ @userTeamCheck.TeamMoney M</b></span>
+				</div>
+			</div>
+
+			<div id="wrapDriverTeam">
+				@for (int i = @Model.Count(); i < 5; i++)
+				{
+					<div class="card-body">
+						<div class="card" style="width: 10rem;">
+							<img id="noTeam" class="card-img-top" src="~/img/svg-icons/plus.svg" alt="Add Driver">
+							<div class="card-body">
+								<p class="card-text">Add Driver</p>
+							</div>
+						</div>
+					</div>
+				}
+
+				@foreach (VistaUserTeam userTeam in Model)
+				{
+					<div class="card-body">
+						<div class="card" style="width: 15rem;">
+
+							@if (userTeam.DriverName == "Lewis Hamilton" || userTeam.DriverName == "George Russell")
+							{
+								<img style="background-color: #00cab5" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Max Verstappen" || userTeam.DriverName == "Sergio Pérez")
+							{
+								<img style="background-color: #1e58be" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Charles Leclerc" || userTeam.DriverName == "Carlos Sainz")
+							{
+								<img style="background-color: #ea1d23" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Esteban Ocon" || userTeam.DriverName == "Pierre Gasly")
+							{
+								<img style="background-color: #218fcb" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Lando Norris" || userTeam.DriverName == "Oscar Piastri")
+							{
+								<img style="background-color: #f47f1f" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Fernando Alonso" || userTeam.DriverName == "Lance Stroll")
+							{
+								<img style="background-color: #2a7c68" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Yuki Tsunoda" || userTeam.DriverName == "Nyck de Vries")
+							{
+								<img style="background-color: #48728e" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Valtteri Bottas" || userTeam.DriverName == "Guanyu Zhou")
+							{
+								<img style="background-color: #a91e35" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Alex Albon" || userTeam.DriverName == "Logan Sargeant")
+							{
+								<img style="background-color: #35bad9" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+							else if (userTeam.DriverName == "Kevin Magnussen" || userTeam.DriverName == "Nico Hülkenberg")
+							{
+								<img style="background-color: #acb0b3" class="card-img-top" src="~/img/Drivers/@userTeam.DriverImg" alt="Driver image">
+							}
+
+							<ul class="list-group list-group-flush">
+								<li style="color:black" class="list-group-item"><b>@userTeam.DriverName</b></li>
+								<li class="list-group-item">$ @userTeam.DriverPrice M</li>
+							</ul>
+						</div>
+					</div>
+				}
+				<div class="card-body">
+					<div class="card" style="width: 15rem;">
+
+						@if (Model[0].TeamName == "Mercedes")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #00cab5" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "Red Bull Racing")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #1e58be" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "Ferrari")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #ea1d23" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "Alpine")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #218fcb" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "McLaren")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #f47f1f" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "Aston Martin")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #2a7c68" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "AlphaTauri")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #48728e" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "Alfa Romeo")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #a91e35" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "Williams")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #35bad9" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+						else if (Model[0].TeamName == "Haas F1 Team")
+						{
+							<img id="imgTeamUserTeam" style="background-color: #acb0b3" class="card-img-top" src="~/img/Cars/@Model[0].TeamImg" alt="Team image">
+						}
+
+						<ul class="list-group list-group-flush">
+							<li style="color:black" class="list-group-item"><b>@Model[0].TeamName</b></li>
+							<li class="list-group-item">$ @Model[0].TeamPrice M</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div class="card-footer text-muted">
+					@if (@ViewData["ManageTeam"] == "Manage")
+					{
+						<a id="manageTeam" asp-controller="F1" asp-action="CreateUserTeamDrivers">Manage Team <span><img width="16px" src="~/img/svg-icons/arrow-right.svg" /></span></a>
+					}
+					else
+					{
+						<a id="manageTeam">@ViewData["ManageTeam"]</a>
+					}
+				</div>
+			</div>
+		</div>
+	}
+	else
+	{
+		@if(userTeamCheck == null)
+		{
+			<div class="card bg-light border-danger">
+				<div class="card-header">
+					Team Name
+				</div>
+
+				<div id="wrapDriverTeam">
+					@for (int i = 0; i < 5; i++)
+					{
+						<div class="card-body">
+							<div class="card" style="width: 10rem;">
+								<img id="noTeam" class="card-img-top" src="~/img/svg-icons/plus.svg" alt="Add Driver">
+								<div class="card-body">
+									<p class="card-text">Add Driver</p>
+								</div>
+							</div>
+						</div>
+					}
+
+					<div class="card-body">
+						<div class="card" style="width: 10rem;">
+							<img id="noTeam" class="card-img-top" src="~/img/svg-icons/plus.svg" alt="Add Driver">
+							<div class="card-body">
+								<p class="card-text">Add Team</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="card-footer text-muted">
+						<a asp-controller="F1" asp-action="CreateUserTeam" asp-route-idUser="@idUser" id="manageTeam">Create Team <span><img width="16px" src="~/img/svg-icons/arrow-right.svg" /></span></a>
+					</div>
+				</div>
+			</div>
+		}
+		else
+		{
+			<div class="card bg-light border-danger">
+				<div class="card-header">
+					<div class="d-flex justify-content-between">
+						<span>@userTeamCheck.UserTeamName</span>
+						<span><b>Budget - $ @userTeamCheck.TeamMoney M</b></span>
+					</div>
+				</div>
+
+				<div id="wrapDriverTeam">
+					@for (int i = 0; i < 5; i++)
+					{
+						<div class="card-body">
+							<div class="card" style="width: 10rem;">
+								<img id="noTeam" class="card-img-top" src="~/img/svg-icons/plus.svg" alt="Add Driver">
+								<div class="card-body">
+									<p class="card-text">Add Driver</p>
+								</div>
+							</div>
+						</div>
+					}
+
+					<div class="card-body">
+						<div class="card" style="width: 15rem;">
+
+							@if (userTeamCheck.IdTeam == 1)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #00cab5" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 2)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #1e58be" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 3)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #ea1d23" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 4)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #218fcb" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 5)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #f47f1f" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 6)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #2a7c68" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 7)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #48728e" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 8)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #a91e35" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 9)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #35bad9" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+							else if (userTeamCheck.IdTeam == 10)
+							{
+								<img id="imgTeamUserTeam" style="background-color: #acb0b3" class="card-img-top" src="~/img/Cars/@(@userTeamCheck.IdTeam).png" alt="Team image">
+							}
+
+							<ul class="list-group list-group-flush">
+								<li style="color:black" class="list-group-item"><b>@teams[numTeam].TeamName</b></li>
+								<li class="list-group-item">$ @teams[numTeam].Price M</li>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="card-footer text-muted">
+						@if(@ViewData["ManageTeam"] == "Manage") {
+							<a id="manageTeam" asp-controller="F1" asp-action="CreateUserTeamDrivers">Manage Team <span><img width="16px" src="~/img/svg-icons/arrow-right.svg" /></span></a>
+						}
+						else {
+							<a id="manageTeam">@ViewData["ManageTeam"]</a>
+						}
+					</div>
+				</div>
+			</div>
+		}
+	}
+</div>
+

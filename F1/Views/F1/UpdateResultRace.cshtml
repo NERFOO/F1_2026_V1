@@ -1,0 +1,93 @@
+﻿@{
+    List<Driver> drivers = ViewData["Drivers"] as List<Driver>;
+    List<Race> races = ViewData["Races"] as List<Race>;
+
+    ResultRace resultRace = ViewData["ResultRace"] as ResultRace;
+}
+
+<div style="padding: 160px 0 100px">
+    <h1>Update result race</h1>
+
+    <h3>Find the record you want to change first. Then a form will appear to change this record.</h3>
+    @if(resultRace == null)
+    {
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <label>Choose the race</label>
+            <select class="form-select" name="idRace" required>
+                <option value="" selected>Choose one</option>
+                @foreach (Race r in races)
+                {
+                    <option value="@r.IdRace">@r.GpName</option>
+                }
+            </select>
+
+            <label>Choose the driver</label>
+            <select class="form-select" name="idDriver" required>
+                <option value="" selected>Choose one</option>
+                @foreach (Driver d in drivers)
+                {
+                    <option value="@d.IdDriver">@d.DriverName</option>
+                }
+            </select>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-outline-danger">Search Record</button>
+                <a asp-controller="F1" asp-action="AdminPage" class="btn btn-outline-warning">Come back</a>
+            </div>
+        </form>
+    }
+    else
+    {
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <label>Insert the race position</label>
+            <input type="number" name="position" class="form-control" value="@resultRace.PositionRace" required />
+
+            <label>Insert the points obtained</label>
+            <input type="number" name="points" class="form-control" value="@resultRace.Points" required />
+
+            <label>Insert race time</label>
+            <input type="text" name="lapTime" class="form-control" value="@resultRace.LapTime" required />
+
+            <label>Choose the race</label>
+            <select class="form-select" name="idRace" required>
+                <option value="">Choose one</option>
+                @foreach (Race r in races)
+                {
+                    @if (resultRace.IdRace == r.IdRace)
+                    {
+                        <option value="@resultRace.IdResultRace" selected>@r.GpName</option>
+                    }
+                    else
+                    {
+                        <option value="@r.IdRace">@r.GpName</option>
+                    }
+                }
+            </select>
+
+            <label>Choose the driver</label>
+            <select class="form-select" name="idDriver" required>
+                <option value="">Choose one</option>
+                @foreach (Driver d in drivers)
+                {
+                    @if (resultRace.IdDriver == d.IdDriver)
+                    {
+                        <option value="@resultRace.IdDriver" selected>@d.DriverName</option>
+                    }
+                    else
+                    {
+                        <option value="@d.IdDriver">@d.DriverName</option>
+                    }
+                }
+            </select>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-outline-danger">Add Record</button>
+                <a asp-controller="F1" asp-action="AdminPage" class="btn btn-outline-warning">Come back</a>
+            </div>
+        </form>
+    }
+
+    <h4>@ViewData["ResultRaceCreation"]</h4>
+</div>
